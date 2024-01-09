@@ -4,14 +4,14 @@
     <ion-img src="../assets/images/auto.avif"></ion-img>
 
     <div id="container">
-        <h1>TeLlevoApp</h1>
+        <h1><strong>T</strong>eLlevoApp</h1>
     </div>
     
 
     <!-- Formulario -->
     <div class="login-form">
 
-        <form [formGroup]="form">
+        <form [formGroup]="form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
             <!-- Contenido agregado desde components -->
             <app-custom-input 
@@ -39,7 +39,7 @@
             </div>
             
             <dir id="btn1">
-                <ion-button expand="block" (click)="go()" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+                <ion-button expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
                     Ingresar
                 </ion-button>
             </dir>

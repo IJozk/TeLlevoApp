@@ -7,13 +7,22 @@ import { IonicModule } from '@ionic/angular';
 import { PasajeroPageRoutingModule } from './pasajero-routing.module';
 
 import { PasajeroPage } from './pasajero.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PasajeroPageRoutingModule
+    PasajeroPageRoutingModule,
+    SharedModule
+  ],
+  exports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    PasajeroPageRoutingModule,
+    SharedModule
   ],
   declarations: [PasajeroPage]
 })

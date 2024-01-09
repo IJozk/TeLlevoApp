@@ -16,7 +16,7 @@ export class AuthPage implements OnInit {
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
-  go() {
+  submit() {
     if(this.form.value.email?.indexOf('conductor')!=-1){
       this.router.navigate([`/conductor`]);
       console.log(this.form.value.email);
