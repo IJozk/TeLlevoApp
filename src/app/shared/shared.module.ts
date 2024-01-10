@@ -6,6 +6,7 @@ import { CustomBtnComponent } from './components/custom-btn/custom-btn.component
 import { LogoComponent } from './components/logo/logo.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CardComponent } from './components/card/card.component';
 
 
 
@@ -14,13 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     CustomInputComponent,
     CustomBtnComponent,
-    LogoComponent
+    LogoComponent,
+    CardComponent
   ],
   exports:[
     HeaderComponent,
     CustomInputComponent,
     CustomBtnComponent,
     LogoComponent,
+    CardComponent,
     ReactiveFormsModule
   ],
   imports: [

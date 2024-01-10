@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { ConductorPageRoutingModule } from './conductor-routing.module';
 
 import { ConductorPage } from './conductor.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ConductorPageRoutingModule
+    ConductorPageRoutingModule,
+    SharedModule
   ],
   declarations: [ConductorPage]
 })
