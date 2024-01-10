@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-pasajero',
@@ -6,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pasajero.page.scss'],
 })
 export class PasajeroPage implements OnInit {
+
+  form = new FormGroup({
+    inicio : new FormControl('', Validators.required),
+    destino : new FormControl('', Validators.required)
+  })
 
   constructor() { }
 

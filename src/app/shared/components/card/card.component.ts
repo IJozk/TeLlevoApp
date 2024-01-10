@@ -16,7 +16,12 @@ export class CardComponent  implements OnInit {
   @Input() label!: string;
   // Para ingresar un icono en un campo
   @Input() content!: string;
+  // Para ingresar un icono en un campo
+  @Input() size2!: string;
+  @Input() sizeimg!: string;
+  @Input() istitle!: string;
 
+  
 
   constructor() { }
 

@@ -1,13 +1,13 @@
 <ion-item>
   <ion-card>
-    <ion-card-header>
+    <ion-card-header *ngIf="istitle == 'true'">
       <ion-card-title>{{title}}</ion-card-title>
     </ion-card-header>
     <ion-grid>
-      <ion-row>
+      <ion-row [ngStyle]="{'height': size2}">
         
         <ion-col size="4">
-          <ion-img src="{{img}}"></ion-img>
+          <ion-img src="{{img}}" [ngStyle]="{'height': sizeimg}"></ion-img>
           <ion-label>{{label}}</ion-label>
         </ion-col>
 
