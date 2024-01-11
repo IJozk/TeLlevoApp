@@ -1,0 +1,32 @@
+<app-header isBackBtn="true" title="Recuperar cuenta" ruta="/auth" iconMain="arrow-back-outline"></app-header>
+<ion-content>
+
+  <div class="d-flex-center">
+
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      
+      <app-custom-input 
+      autocomplete="email" 
+      icon="mail-outline"
+      [control]="form.controls.email" 
+      type="email"
+      label="Email"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+
+        <div *ngIf="form.controls.email.errors?.['required']">Se debe ingresar un correo</div>
+        <div *ngIf="form.controls.email.errors?.['email']">Ingrese un correo valido</div>
+
+      </div>
+
+      <ion-button  expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+        Enviar correo de recuperacion
+        <ion-icon slot="start" class="icon-btn" name="arrow-redo-outline"></ion-icon>
+      </ion-button>
+
+    
+  </form>
+
+  </div>

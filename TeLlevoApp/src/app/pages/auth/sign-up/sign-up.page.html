@@ -1,0 +1,130 @@
+<app-header isBackBtn="true" title="Registro" ruta="/auth" iconMain="arrow-back-outline"></app-header>
+<ion-content>
+
+  <div class="d-flex-center">
+
+
+    <!--          Nombre              --> 
+
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <app-custom-input 
+      autocomplete="name"
+      icon="person-outline"
+      [control]="form.controls.nombre" 
+      type="text"
+      label="Nombre"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.nombre.errors && form.controls.nombre.touched">
+
+        <div *ngIf="form.controls.nombre.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Debes ingresar un nombre</p>
+        </ion-text>
+        </ion-item></div>
+        <div *ngIf="form.controls.nombre.errors?.['minlength']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Debes ingresar un nombre con un minimo de 5 caracteres</p>
+        </ion-text>
+        </ion-item></div>
+        <div *ngIf="form.controls.nombre.errors?.['pattern']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">No se permiten caracteres especiales ni numericos en el nombre</p>
+        </ion-text>
+        </ion-item> </div>
+        
+      </div>
+
+      <!--          Email              --> 
+
+      <app-custom-input 
+      autocomplete="email"
+      icon="mail-outline"
+      [control]="form.controls.email" 
+      type="email"
+      label="Email"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.email.errors && form.controls.email.touched">
+
+        <div *ngIf="form.controls.email.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Se debe ingresar un correo</p>
+        </ion-text>
+        </ion-item></div>
+        <div *ngIf="form.controls.email.errors?.['email']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Ingrese un correo valido</p>
+        </ion-text>
+        </ion-item></div>
+
+      </div>
+
+      <!--          Password              --> 
+
+      <app-custom-input
+      icon="lock-closed-outline" 
+      [control]="form.controls.password" 
+      type="password"
+      label="Password"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.password.errors && form.controls.password.touched">
+
+        <div *ngIf="form.controls.password.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Debes ingresar una contraseña</p>
+        </ion-text>
+        </ion-item></div>
+        
+      </div>
+
+      <app-custom-input
+      icon="lock-closed-outline" 
+      [control]="form.controls.confirmPass" 
+      type="password"
+      label="Confirmar password"
+      ></app-custom-input>
+
+      
+
+      <!-- Agrega este bloque donde quieras mostrar mensajes de error -->
+      <div class="validators" *ngIf="form.controls.confirmPass.errors && form.controls.confirmPass.touched">
+
+        <!-- Mensaje de error para contraseña requerida -->
+        <div *ngIf="form.controls.confirmPass.errors?.['required']">
+          <ion-item>
+            <ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+            <ion-text color="danger">
+              <p class="m_error">Debes ingresar una contraseña</p>
+            </ion-text>
+          </ion-item>
+        </div>        
+
+      </div>
+
+      <div *ngIf="form.hasError('coincidirCampos')">
+        <ion-item>
+          <ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+            <p class="m_error">Las contraseñas no coinciden</p>
+          </ion-text>
+        </ion-item>
+      </div>
+
+      <ion-button  expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+        Registrate
+        <ion-icon slot="start" class="icon-btn" name="person-add-outline"></ion-icon>
+      </ion-button>
+
+
+    
+  </form>
+
+  </div>
+
+  
+
+</ion-content>
+

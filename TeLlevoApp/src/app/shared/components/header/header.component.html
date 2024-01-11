@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-button (click)="back()" *ngIf="isBackBtn == 'true'">
+      <ion-icon slot="icon-only" name="{{iconMain}}"></ion-icon>
+    </ion-button>
+
+    <ion-menu-toggle *ngIf="isBackBtn == 'menu-toggle'">
+      <ion-button fill="clean"><ion-icon slot="icon-only" name="{{iconMain}}"></ion-icon></ion-button>
+    </ion-menu-toggle>
+
+    <ion-title> {{title}}</ion-title>
+
+  </ion-toolbar>
+</ion-header>

@@ -1,0 +1,52 @@
+<app-header title="Viajes Realizados" isBackBtn="true" iconMain="arrow-back-outline" ruta="/main"></app-header>
+
+<ion-content>
+  <ion-list>
+    <ion-row>
+      <ion-col size="8"></ion-col>
+      <ion-col><ion-button (click)="loaded = !loaded">Buscar</ion-button></ion-col>
+    </ion-row>
+  </ion-list>
+
+  <ion-list *ngIf="loaded">
+    <ion-list-header>Viajes Realizados</ion-list-header>
+    <ion-item  routerLink="/main">
+      <ion-thumbnail slot="start">
+        <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>Viaje 1</h3>
+        <p>Destino: Concepcion</p>
+        <p>Detalle destino: Concepción centro</p>
+        <p>Hora Salida: 10:22 AM</p>
+        <p>Valor viaje: $2.000</p>
+        <p>Patente: XX-XX-XX</p>
+        <p>Fecha: 01/01/2024</p>
+        <p>Completado</p>
+      </ion-label>
+    </ion-item>
+    
+  </ion-list>
+
+  <ion-list *ngIf="!loaded">
+    <ion-list-header>
+      <ion-skeleton-text [animated]="true" style="width: 80px"></ion-skeleton-text>
+    </ion-list-header>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text [animated]="true"></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%;"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 60%;"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text [animated]="true" style="width: 30%;"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

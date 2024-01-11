@@ -1,0 +1,60 @@
+<ion-menu contentId="main-content">
+  <app-header title="Menu" isBackBtn="menu-toggle" iconMain="arrow-back-outline"> </app-header>
+  <ion-content class="ion-padding">
+
+    <app-card istitle="false" size2="100px" sizeimg="80px" label="" content="Nombre: Pepito G. Institución: DuocUC" img="../assets/images/user.png"></app-card>
+
+    <ion-list>
+      <ion-item>
+        <ion-button fill="clear">Mi cuenta</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button fill="clear" routerLink="/main/viajes-realizados">Mis viajes realizados</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button fill="clear" routerLink="/main/mis-autos">Mis automoviles</ion-button>
+      </ion-item>
+      <ion-item>
+        <ion-button fill="clear" routerLink="/auth" color="danger">Salir</ion-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <app-header title="TeLlevoApp" isBackBtn="menu-toggle" iconMain="list-outline"> </app-header>
+  <ion-content class="ion-padding">
+
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1597.4856477537523!2d-73.06382807675149!3d-36.79523861421729!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9669b4503c9a1735%3A0x3fc32996839e6986!2sDuoc%20UC%3A%20Sede%20San%20Andr%C3%A9s%20De%20Concepci%C3%B3n!5e0!3m2!1ses-419!2scl!4v1704872841814!5m2!1ses-419!2scl" 
+      width="95%"
+      height="200" 
+      style="border:0;
+            margin-top: 5vw;
+            margin-bottom: 5vw;" 
+      allowfullscreen="" loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+    
+    <div>
+      <ion-row>
+        <ion-col size="10" >
+          <ion-button style="min-width: 85vw" color="light" routerLink="/main/buscar-conductor">
+              <ion-icon slot="icon-only" name="people-circle-outline" style="height: 30vw; width: 30vw"></ion-icon>
+              <p>Buscar asiento disponible</p>
+          </ion-button>
+        </ion-col>
+
+        <ion-col size="10">
+          <ion-button style="min-width: 85vw" color="medium">
+            <ion-icon slot="icon-only" name="car-sport-outline" style="height: 30vw; width: 30vw"></ion-icon>
+            <p>Publicar disponibilidad</p>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+    
+
+    
+  </ion-content>
+</div>
