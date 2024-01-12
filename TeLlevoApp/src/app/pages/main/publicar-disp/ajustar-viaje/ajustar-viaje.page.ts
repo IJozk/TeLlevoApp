@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-ajustar-viaje',
@@ -15,9 +17,15 @@ export class AjustarViajePage implements OnInit {
     montoAsiento: new FormControl([]),
   })
 
-  constructor() { }
+  router = inject(Router);
+  utilSvc= inject(UtilsService);
 
   ngOnInit() {
+  }
+
+  confirmarviaje(){
+    this.utilSvc.saveInLocalStorage('reserva', { "reserva": "false" });
+    this.router.navigateByUrl('/main');
   }
 
 }

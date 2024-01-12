@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-buscar-conductor',
@@ -8,13 +10,15 @@ import { Component, OnInit } from '@angular/core';
 export class BuscarConductorPage implements OnInit {
   loaded: any = false;
 
-  constructor() { }
+  router = inject(Router);
+  utilSvc= inject(UtilsService);
 
   ngOnInit() {
   }
 
   confirmarAsiento(){
-    
+    this.utilSvc.saveInLocalStorage('reserva', { "reserva": "true" });
+    this.router.navigateByUrl('/main');
   }
 
 }
