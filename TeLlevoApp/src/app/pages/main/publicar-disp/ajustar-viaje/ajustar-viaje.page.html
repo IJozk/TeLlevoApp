@@ -1,0 +1,41 @@
+<app-header title="Ajustar viaje" isBackBtn="true" iconMain="arrow-back-outline" ruta="/main/publicar-disp"> </app-header>
+
+<ion-content>
+
+<form action="">
+
+  <app-custom-input 
+    icon="car-outline"
+    [control]="form.controls.patente" 
+    type="text"
+    label="Automovil"
+  ></app-custom-input>
+
+  <app-custom-input 
+      icon="location-outline"
+      [control]="form.controls.destino" 
+      type="text"
+      label="Destino"
+  ></app-custom-input>
+
+  <app-custom-input 
+      icon="people-outline"
+      [control]="form.controls.asientos" 
+      type="text"
+      label="Asientos disponibles"
+  ></app-custom-input>
+
+  <app-custom-input 
+    icon="cash-outline"
+    [control]="form.controls.montoAsiento" 
+    type="text"
+    label="Monto p/ asiento"
+  ></app-custom-input>
+
+  <ion-button routerLink="/main" expand="block" fill="clear" shape="round">
+    Confirmar
+  </ion-button>
+
+</form>
+
+</ion-content>

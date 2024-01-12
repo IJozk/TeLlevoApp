@@ -2,11 +2,11 @@
   <app-header title="Menu" isBackBtn="menu-toggle" iconMain="arrow-back-outline"> </app-header>
   <ion-content class="ion-padding">
 
-    <app-card istitle="false" size2="100px" sizeimg="80px" label="" content="Nombre: Pepito G. Institución: DuocUC" img="../assets/images/user.png"></app-card>
+    <app-card istitle="false" size2="100px" sizeimg="80px" label="" content={{name}} img="../assets/images/user.png"></app-card>
 
     <ion-list>
       <ion-item>
-        <ion-button fill="clear">Mi cuenta</ion-button>
+        <ion-button fill="clear" routerLink="/main/mi-cuenta">Mi cuenta</ion-button>
       </ion-item>
       <ion-item>
         <ion-button fill="clear" routerLink="/main/viajes-realizados">Mis viajes realizados</ion-button>
@@ -46,7 +46,7 @@
         </ion-col>
 
         <ion-col size="10">
-          <ion-button style="min-width: 85vw" color="medium">
+          <ion-button style="min-width: 85vw" color="medium" routerLink="/main/publicar-disp">
             <ion-icon slot="icon-only" name="car-sport-outline" style="height: 30vw; width: 30vw"></ion-icon>
             <p>Publicar disponibilidad</p>
           </ion-button>

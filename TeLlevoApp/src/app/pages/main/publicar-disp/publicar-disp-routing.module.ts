@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: PublicarDispPage
+  },
+  {
+    path: 'ajustar-viaje',
+    loadChildren: () => import('./ajustar-viaje/ajustar-viaje.module').then( m => m.AjustarViajePageModule)
   }
 ];
 
