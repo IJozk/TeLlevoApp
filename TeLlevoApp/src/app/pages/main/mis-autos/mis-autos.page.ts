@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Auto } from 'src/app/models/auto.model';
+import { User } from 'src/app/models/user.model';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-mis-autos',
@@ -7,11 +12,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MisAutosPage implements OnInit {
 
+
   loaded: boolean = false;
+  autos1: Auto[] = [];
+  cont: string;
 
-  constructor() { }
+  fireSvc = inject(FirebaseService)
+  router = inject(Router)
+  utilSvc = inject(UtilsService)
 
-  ngOnInit() {
+  async ngOnInit() {
+    let user: User = this.utilSvc.getFromLocalStorage('user')
+    let email: string= user.email
+    this.router.events.subscribe(async event => {
+      if (event instanceof NavigationEnd) { 
+        await this.fireSvc.autosByOwner(email).then( autos => {
+          this.utilSvc.saveInLocalStorage('autos', autos);
+          for (let i in autos) {
+            const auto: Auto = autos[i];
+            console.log(auto.patente);
+            this.autos1.push(auto);
+          
+          }
+        })
+      }
+    })
+  }
+
+  agregarCont(){
+    
   }
 
 }

@@ -24,23 +24,20 @@ export class MainPage implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) { 
         let user: User = JSON.parse(localStorage.getItem('user'));
-    this.name = "Usuario: "+user.nombre;
-    let res: Reserva = JSON.parse(localStorage.getItem('reserva'));
-    this.reserva =res.reserva;
-    console.log(this.reserva);
+        this.name = "Usuario: "+user.nombre;
+        let res: Reserva = JSON.parse(localStorage.getItem('reserva'));
+        this.reserva =res.reserva;
+        console.log(this.reserva);
       }
-    });
+    });  
+  } 
 
-    
-    
-  }
+  async salir(){
+    await this.utilsSvc.saveInLocalStorage('autos', [])
+   
+    await localStorage.clear();
 
-  salir(){
     this.utilsSvc.routerLink('/auth');
-    console.log(this.reserva.toString());
-    this.utilsSvc.saveInLocalStorage('user', '');
-    this.utilsSvc.saveInLocalStorage('reserva', { "reserva": "" });  
-    
   }
 
 }

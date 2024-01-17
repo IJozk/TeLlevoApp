@@ -11,6 +11,16 @@
     label="Automovil"
   ></app-custom-input>
 
+  <div class="validators" *ngIf="form.controls.patente.errors && form.controls.patente.touched">
+
+    <div *ngIf="form.controls.patente.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+      <ion-text color="danger">
+      <p class="m_error">Se debe ingresar una patente</p>
+    </ion-text>
+    </ion-item></div>
+    
+  </div>
+
   <app-custom-input 
       icon="location-outline"
       [control]="form.controls.destino" 
@@ -24,6 +34,14 @@
       type="text"
       label="Asientos disponibles"
   ></app-custom-input>
+
+  <div class="validators" *ngIf="form.controls.asientos.errors && form.controls.asientos.touched">
+    <div *ngIf="form.controls.asientos.errors?.['max']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+      <ion-text color="danger">
+      <p class="m_error">Ingrese un numero de asiento igual o menor a {{maxAsientos}}</p>
+    </ion-text>
+    </ion-item></div>
+  </div>
 
   <app-custom-input 
     icon="cash-outline"

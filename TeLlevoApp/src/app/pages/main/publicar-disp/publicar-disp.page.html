@@ -4,19 +4,20 @@
 
   <ion-list >
     <ion-list-header>Autos</ion-list-header>
-    <ion-item routerLink="/main/publicar-disp/ajustar-viaje">
-      <ion-thumbnail slot="start">
-        <ion-icon style="width: 100%; height: 100%" name="car-outline"></ion-icon>
-      </ion-thumbnail>
-      <ion-label>
-        <h3>Auto 1</h3>
-        <p>Tipo: Citycar</p>
-        <p>Modelo: Toyota</p>
-        <p>Color: Blanco</p>
-        <p>Patente: XX-XX-XX</p>
-        <p>Asientos maximos: 4</p>
-      </ion-label>
-    </ion-item>
+    <div *ngFor="let i of autos1">
+      <ion-item (click)="crearViaje(i.patente, i.maxAsientos)">
+        <ion-thumbnail slot="start">
+          <ion-icon style="width: 100%; height: 100%" name="car-outline"></ion-icon>
+        </ion-thumbnail>
+        <ion-label>
+          <h3><strong>{{i.nombre.toUpperCase()}}</strong></h3>
+          <p>Tipo: {{i.tipo}}</p>
+          <p>Modelo: {{i.modelo}}</p>
+          <p>Patente: {{i.patente.toUpperCase()}}</p>
+          <p>Asientos maximos: {{i.maxAsientos}}</p>
+        </ion-label>
+      </ion-item>
+    </div>
     
   </ion-list>
 

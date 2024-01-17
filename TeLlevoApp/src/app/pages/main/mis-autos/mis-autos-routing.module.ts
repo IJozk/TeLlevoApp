@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: MisAutosPage
+  },
+  {
+    path: 'add-auto',
+    loadChildren: () => import('./add-auto/add-auto.module').then( m => m.AddAutoPageModule)
   }
 ];
 

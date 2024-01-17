@@ -1,0 +1,143 @@
+<app-header isBackBtn="true" title="Agregar automovil" ruta="/auth" iconMain="arrow-back-outline"></app-header>
+<ion-content>
+
+  <div class="d-flex-center">
+
+
+    <!--          Nombre             --> 
+
+    <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
+
+      <app-custom-input 
+      autocomplete="name"
+      icon="person-outline"
+      [control]="form.controls.nombre" 
+      type="text"
+      label="Nombre"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.nombre.errors && form.controls.nombre.touched">
+
+        <div *ngIf="form.controls.nombre.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Debes ingresar un nombre para el vehiculo</p>
+        </ion-text>
+        </ion-item></div>
+        
+      </div>
+
+      <!--          Patente              --> 
+
+      <app-custom-input 
+      icon="car-outline"
+      [control]="form.controls.patente" 
+      type="text"
+      label="Patente"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.patente.errors && form.controls.patente.touched">
+
+        <div *ngIf="form.controls.patente.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Se debe ingresar una patente</p>
+        </ion-text>
+        </ion-item></div>
+        <div *ngIf="form.controls.patente.errors"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Ingrese una patente valida</p>
+        </ion-text>
+        </ion-item></div>
+
+      </div>
+
+      <!--          Modelo              --> 
+
+      <app-custom-input
+      icon="lock-closed-outline" 
+      [control]="form.controls.modelo" 
+      type="text"
+      label="modelo"
+      ></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.modelo.errors && form.controls.modelo.touched">
+
+        <div *ngIf="form.controls.modelo.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Debes ingresar un modelo</p>
+        </ion-text>
+        </ion-item></div>
+        
+      </div>
+
+      <!--          Asientos maximos              --> 
+      <app-custom-input
+      icon="lock-closed-outline" 
+      [control]="form.controls.maxAsientos" 
+      type="text"
+      label="Asientos maximos"
+      ></app-custom-input>
+
+
+      <!-- Para mostrar mensajes de error  -->
+      <div class="validators" *ngIf="form.controls.maxAsientos.errors && form.controls.maxAsientos.touched">
+
+        <!-- Mensaje de error para contraseña requerida -->
+        <div *ngIf="form.controls.maxAsientos.errors?.['required']">
+          <ion-item>
+            <ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+            <ion-text color="danger">
+              <p class="m_error">Debes ingresar el máximo de asientos</p>
+            </ion-text>
+          </ion-item>
+        </div>
+        <div *ngIf="form.controls.maxAsientos.errors"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+          <ion-text color="danger">
+          <p class="m_error">Ingrese un número valido (máximo 9)</p>
+        </ion-text>
+        </ion-item></div>        
+
+      </div>
+
+      <!--          Tipo              --> 
+      <app-custom-input
+      icon="lock-closed-outline" 
+      [control]="form.controls.tipo" 
+      type="text"
+      label="Tipo automovil"
+      ></app-custom-input>
+
+
+      <!-- Para mostrar mensajes de error  -->
+      <div class="validators" *ngIf="form.controls.tipo.errors && form.controls.tipo.touched">
+
+        <!-- Mensaje de error para contraseña requerida -->
+        <div *ngIf="form.controls.tipo.errors?.['required']">
+          <ion-item>
+            <ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+            <ion-text color="danger">
+              <p class="m_error">Debes ingresar el maximo de asientos</p>
+            </ion-text>
+          </ion-item>
+        </div>        
+
+      </div>
+
+      
+
+
+
+      <ion-button  expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
+        Agregar auto
+        <ion-icon slot="start" class="icon-btn" name="person-add-outline"></ion-icon>
+      </ion-button>
+
+
+    
+  </form>
+
+  </div>
+
+  
+
+</ion-content>
+

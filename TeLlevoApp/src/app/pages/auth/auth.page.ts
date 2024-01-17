@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -85,7 +85,11 @@ export class AuthPage implements OnInit {
   }
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    
+        localStorage.clear();
+    
+  }
 
 
 }
