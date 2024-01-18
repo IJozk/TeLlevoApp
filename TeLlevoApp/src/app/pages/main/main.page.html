@@ -55,28 +55,11 @@
     </div>
 
     <div *ngIf="reserva == 'true'">
-    <h1>Viaje en ejecucion</h1>
-      <ion-item  routerLink="/main">
-        
-        <ion-thumbnail slot="start">
-          <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
-        </ion-thumbnail>
-        <ion-label>
-          <p>Destino: Concepcion</p>
-          <p>Detalle destino: Concepción centro</p>
-          <p>Hora Salida: 10:22 PM</p>
-          <p>Valor viaje: $2.000</p>
-          <p>Patente: XX-XX-XX</p>
-        </ion-label>
-      </ion-item>
-    </div>
-
-    <div *ngIf="reserva == 'false'">
-      <h1>Conductor en espera</h1>
-        <ion-item>
-          
+      <h1>Viaje en ejecucion</h1>
+      <div *ngFor="">
+        <ion-item  routerLink="/main">
           <ion-thumbnail slot="start">
-            <ion-icon style="width: 100%; height: 100%" name="car-outline"></ion-icon>
+            <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
           </ion-thumbnail>
           <ion-label>
             <p>Destino: Concepcion</p>
@@ -84,15 +67,35 @@
             <p>Hora Salida: 10:22 PM</p>
             <p>Valor viaje: $2.000</p>
             <p>Patente: XX-XX-XX</p>
-            <p>Asientos disponibles: 3/4</p>
           </ion-label>
-          <ion-button size="5vw" slot="end">
-            Iniciar
-          </ion-button>
-          <ion-button size="5vw" slot="end" color="danger">
-            Cancelar
-          </ion-button>
         </ion-item>
+      </div>
+    </div>
+
+    <div *ngIf="viajeEnEjec != [] && viajeEnEjec">
+      <h1>Esperando pasajeros ...</h1>
+      <div *ngFor="let i of viajeEnEjec">
+        <ion-item  routerLink="/main">
+          <ion-thumbnail slot="start">
+            <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
+          </ion-thumbnail>
+          <ion-label>
+            <p>Patente: {{i.patente}}</p>
+            <p>Destino: {{i.destino}}</p>
+            <p>Hora Salida: {{i.hora}}</p>
+            <p>Monto: ${{i.montoAsiento}}</p>
+            <p>Asientos disponibles: {{i.asientos}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-button size="2vw" slot="end">
+          Iniciar
+        </ion-button>
+        <ion-button size="2vw" slot="end" color="danger">
+          Cancelar
+        </ion-button>
+      </div>
+          
+ 
       </div>
     
 

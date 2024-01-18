@@ -26,10 +26,10 @@ export class MisAutosPage implements OnInit {
     let email: string= user.email
     this.router.events.subscribe(async event => {
       if (event instanceof NavigationEnd) { 
-        await this.fireSvc.autosByOwner(email).then( autos => {
-          this.utilSvc.saveInLocalStorage('autos', autos);
-          for (let i in autos) {
-            const auto: Auto = autos[i];
+        await this.fireSvc.autosByOwner(email).then( autos1 => {
+          this.utilSvc.saveInLocalStorage('autos', autos1);
+          for (let i in autos1) {
+            const auto: Auto = autos1[i];
             console.log(auto.patente);
             this.autos1.push(auto);
           
@@ -37,10 +37,6 @@ export class MisAutosPage implements OnInit {
         })
       }
     })
-  }
-
-  agregarCont(){
-    
   }
 
 }

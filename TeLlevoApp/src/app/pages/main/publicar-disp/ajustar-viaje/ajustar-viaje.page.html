@@ -2,7 +2,7 @@
 
 <ion-content>
 
-<form action="">
+  <form [formGroup]="form" class="auth-form" (ngSubmit)="submit()" (keypress.enter)="submit()">
 
   <app-custom-input 
     icon="car-outline"
@@ -21,12 +21,33 @@
     
   </div>
 
-  <app-custom-input 
-      icon="location-outline"
-      [control]="form.controls.destino" 
-      type="text"
-      label="Destino"
-  ></app-custom-input>
+  <ion-list>
+    <ion-item>
+      <ion-icon slot="start" name="location-outline"></ion-icon>
+      <ion-select
+        aria-label="Destino"
+        placeholder="Selecciona el destino"
+        [formControl]="form.controls.destino"
+      >
+        <ion-select-option value=""></ion-select-option>
+        <ion-select-option value="Concepcion Centro">Concepcion Centro</ion-select-option>
+        <ion-select-option value="San pedro de la paz">San pedro de la paz</ion-select-option>
+        <ion-select-option value="Hualpen">Hualpen</ion-select-option>
+        <ion-select-option value="Talcahuano">Talcahuano</ion-select-option>
+        <ion-select-option value="Penco">Penco</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <div class="validators" *ngIf="form.controls.destino.errors && form.controls.destino.touched">
+
+    <div *ngIf="form.controls.destino.errors?.['required']"><ion-item><ion-icon slot="start" name="close-outline" color="danger" size="small"></ion-icon> 
+      <ion-text color="danger">
+      <p class="m_error">Se debe ingresar un deastino</p>
+    </ion-text>
+    </ion-item></div>
+    
+  </div>
 
   <app-custom-input 
       icon="people-outline"
@@ -50,7 +71,9 @@
     label="Monto p/ asiento"
   ></app-custom-input>
 
-  <ion-button (click)="confirmarviaje()" expand="block" fill="clear" shape="round">
+  <ion-datetime [formControl]="form.controls.hora" presentation="time"></ion-datetime>
+
+  <ion-button  expand="block" mode="ios" class="submit" type="submit" [disabled]="form.invalid">
     Confirmar
   </ion-button>
 

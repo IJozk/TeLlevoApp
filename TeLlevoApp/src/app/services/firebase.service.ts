@@ -54,22 +54,42 @@ export class FirebaseService {
   await autosQuery.get().forEach(async querySnapshot => {
     if (!querySnapshot.empty) {
       while (!querySnapshot.empty) {
-      const snapshot = querySnapshot.docs[i].data()
-      if (snapshot['conductor'] == email){
-        autos.push(snapshot)
-      }  // use only the first document, but there could be more
-      i = i+1;
+        const snapshot = querySnapshot.docs[i].data()
+        if (snapshot['conductor'] == email){
+          autos.push(snapshot)
+        }  
+        i = i+1;
+      }
     }
-    
-    }
-    else {
-        // decide what you want to do if the query returns no documents.
-    }
+    else { }
   })
   console.log('mis autos');
   console.log(autos)
   return autos
-  
   }
+
+  async viajesbyOwner(email: string){
+    const date: Date = new Date();
+    const dateformat :string = ((date.getMonth() > 8) ? (date.getMonth() + 1) : ('0' + (date.getMonth() + 1))) + '/' + ((date.getDate() > 9) ? date.getDate() : ('0' + date.getDate())) + '/' + date.getFullYear();
+    const viajes: any[] = [];
+    let i : number = 0;
+    const viajesQuery = this.firestore.collection('viajes')
+    await viajesQuery.get().forEach(async querySnapshot => {
+      if (!querySnapshot.empty) {
+        while (!querySnapshot.empty) {
+          const snapshot = querySnapshot.docs[i].data()
+          if (snapshot['conductor'] == email && snapshot['fecha'] == dateformat && snapshot['estado'] == 'creado'){
+            viajes.push(snapshot);
+          }  
+          i = i+1;
+        }
+      }
+      else { }
+    })
+    console.log('mis viajes');
+    console.log(viajes)
+    return viajes
+    }
+
 
 }
