@@ -36,7 +36,7 @@
       referrerpolicy="no-referrer-when-downgrade">
     </iframe>
     
-    <div *ngIf="reserva != 'true' && reserva != 'false'">
+    <div *ngIf="!viajeEnEjec || viajeEnEjec.estado == 'cancelado' || viajeEnEjec.estado == 'finalizado'">
       <ion-row>
         <ion-col size="10" >
           <ion-button style="min-width: 90vw" color="light" routerLink="/main/buscar-conductor">
@@ -56,7 +56,7 @@
 
     <div *ngIf="reserva == 'true'">
       <h1>Viaje en ejecucion</h1>
-      <div *ngFor="">
+      <!-- <div *ngFor=""> -->
         <ion-item  routerLink="/main">
           <ion-thumbnail slot="start">
             <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
@@ -69,34 +69,53 @@
             <p>Patente: XX-XX-XX</p>
           </ion-label>
         </ion-item>
-      </div>
+      <!-- </div> -->
     </div>
 
-    <div *ngIf="viajeEnEjec != [] && viajeEnEjec">
+    <div *ngIf="viajeEnEjec && viajeEnEjec.estado == 'creado'">
       <h1>Esperando pasajeros ...</h1>
-      <div *ngFor="let i of viajeEnEjec">
+      <div>
         <ion-item  routerLink="/main">
           <ion-thumbnail slot="start">
             <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
           </ion-thumbnail>
           <ion-label>
-            <p>Patente: {{i.patente}}</p>
-            <p>Destino: {{i.destino}}</p>
-            <p>Hora Salida: {{i.hora}}</p>
-            <p>Monto: ${{i.montoAsiento}}</p>
-            <p>Asientos disponibles: {{i.asientos}}</p>
+            <p>Patente: {{viajeEnEjec.patente}}</p>
+            <p>Destino: {{viajeEnEjec.destino}}</p>
+            <p>Hora Salida: {{viajeEnEjec.hora}}</p>
+            <p>Monto: ${{viajeEnEjec.montoAsiento}}</p>
+            <p>Asientos disponibles: {{viajeEnEjec.asientos}}</p>
           </ion-label>
         </ion-item>
-        <ion-button size="2vw" slot="end">
+        <ion-button (click)="cambioEstado()" size="2vw" slot="end">
           Iniciar
         </ion-button>
-        <ion-button size="2vw" slot="end" color="danger">
+        <ion-button (click)="cancelarViaje()" size="2vw" slot="end" color="danger">
           Cancelar
         </ion-button>
       </div>
-          
- 
+    </div>
+
+    <div *ngIf="viajeEnEjec && viajeEnEjec.estado == 'iniciado'">
+      <h1>Viaje en ejecución</h1>
+      <div>
+        <ion-item  routerLink="/main">
+          <ion-thumbnail slot="start">
+            <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
+          </ion-thumbnail>
+          <ion-label>
+            <p>Patente: {{viajeEnEjec.patente}}</p>
+            <p>Destino: {{viajeEnEjec.destino}}</p>
+            <p>Hora Salida: {{viajeEnEjec.hora}}</p>
+            <p>Monto: ${{viajeEnEjec.montoAsiento}}</p>
+            <p>Asientos disponibles: {{viajeEnEjec.asientos}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-button (click)="finalizarViaje()" size="2vw" slot="end" color="danger">
+          Finalizar
+        </ion-button>
       </div>
+    </div>
     
 
     

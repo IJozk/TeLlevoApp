@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Autoselect } from 'src/app/models/auto-select.model';
 import { Auto } from 'src/app/models/auto.model';
 import { User } from 'src/app/models/user.model';
+import { Viaje } from 'src/app/models/viaje.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -27,6 +28,7 @@ export class AjustarViajePage implements OnInit {
   email: string = this.user.email;
 
   form = new FormGroup({
+    uid: new FormControl(''),
     asientos: new FormControl('', [Validators.required, Validators.max(this.maxAsientos)]),
     destino: new FormControl('', [Validators.required]),
     patente: new FormControl( { value : this.patente, disabled: true } , [Validators.required]),
@@ -49,16 +51,18 @@ export class AjustarViajePage implements OnInit {
       const loading = await this.utilSvc.loading();
       await loading.present();
 
-      let path = `viajes/${this.patente+this.date.toDateString()}`;
+      let path = `viajes/`;
 
+      
       this.form.value.conductor = this.email;
       this.form.value.patente = this.patente;
       this.form.value.fecha = this.dateformat;
       this.form.value.estado = 'creado';
       this.form.value.hora = this.form.value.hora.substring(11,16);
 
-      this.firebaseSvc.setDocument(path, this.form.value).then(async res => {
+      this.firebaseSvc.addDocument(path, this.form.value as Viaje).then(async res => {
         
+        this.firebaseSvc.updateDocument(res.path, 'uid',  res.id)
         this.utilSvc.saveInLocalStorage('reserva', { "reserva": "false" });
         this.router.navigateByUrl('/main');
         this.form.reset();
