@@ -179,5 +179,25 @@ export class FirebaseService {
       return viajes
     }
 
+    async getviajeByUid(uid: string){
+      let viaje: any;
+      const docs = await this.firestore.firestore.collection('viajes').where("uid", "==", uid).get();
+      docs.forEach(doc=>{
+          viaje = doc.data();
+        });
+      return viaje;
+    }
+
+    async getDetViajeByUser(uid: string){
+      let detViaje: any;
+      const docs = await this.firestore.firestore.collection('detalleViajes').where("uidPasajero", "==", uid).where("estado", "==", 'asignado').get();
+      console.log('hola 2');
+      docs.forEach(doc=>{
+          detViaje = doc.data();
+          console.log(detViaje);
+        });
+      return detViaje;
+    }
+
 
 }

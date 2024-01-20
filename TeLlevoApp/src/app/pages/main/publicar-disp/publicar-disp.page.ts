@@ -16,31 +16,36 @@ export class PublicarDispPage implements OnInit {
   autos1: Auto[] = [];
   cont: string;
 
-  fireSvc = inject(FirebaseService)
-  router = inject(Router)
-  utilSvc = inject(UtilsService)
+  fireSvc = inject(FirebaseService);
+  router = inject(Router);
+  utilSvc = inject(UtilsService);
 
   async ngOnInit() {
     
-    let user: User = this.utilSvc.getFromLocalStorage('user')
-    let email: string= user.email
-    this.router.events.subscribe(async event => {
-    await this.utilSvc.saveInLocalStorage('autos', [])
-      if (event instanceof NavigationEnd) { 
-        await this.fireSvc.autosByOwner(email).then( autos1 => {
-          this.utilSvc.saveInLocalStorage('autos', autos1);
-          for (let i in autos1) {
-            const auto: Auto = autos1[i];
-            this.autos1.push(auto);
-          } 
-        })
+    let user: User = this.utilSvc.getFromLocalStorage('user');
+    let email: string= user.email;
+
+    await this.utilSvc.saveInLocalStorage('autos', []);
+    await this.fireSvc.autosByOwner(email).then( autos1 => {
+      this.utilSvc.saveInLocalStorage('autos', autos1);
+      for (let i in autos1) {
+        const auto: Auto = autos1[i];
+        this.autos1.push(auto);
       }
+    }).catch( error => {
+      console.log(error);
+      this.utilSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'danger',
+        position: 'middle',
+        icon: 'alert-circle-outline'})
     })
   }
 
   crearViaje(patente: string, maxAsientos: string){
     this.utilSvc.saveInLocalStorage('auto-select', {'patente': patente, 'maxAsientos': maxAsientos});
-    console.log(this.utilSvc.getFromLocalStorage('auto-select'))
+    console.log(this.utilSvc.getFromLocalStorage('auto-select'));
     this.router.navigateByUrl('/main/publicar-disp/ajustar-viaje');
   }
 

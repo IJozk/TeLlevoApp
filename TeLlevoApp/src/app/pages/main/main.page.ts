@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { DetalleReserva } from 'src/app/models/detalleReserva.model';
 import { User } from 'src/app/models/user.model';
 import { Viaje } from 'src/app/models/viaje.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -13,8 +14,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class MainPage implements OnInit {
 
   viajeEnEjec: Viaje;
+  viajePasajero: Viaje;
   name!: string;
-  reserva!: string;
+  reserva!: DetalleReserva;
 
   firebaseSvc = inject(FirebaseService);
   utilSvc = inject(UtilsService);
@@ -24,11 +26,25 @@ export class MainPage implements OnInit {
 
     this.router.events.subscribe(async event => {
       if (event instanceof NavigationEnd) { 
+        
         let user: User = JSON.parse(localStorage.getItem('user'));
         this.name = "Usuario: "+user.nombre;
-        await this.firebaseSvc.viajebyOwner(user.email).then( viaje =>{
-          this.utilSvc.saveInLocalStorage('viajeEnEjec', viaje);
-          this.viajeEnEjec = viaje;
+        await this.firebaseSvc.getDetViajeByUser(user.uid).then(async (res: DetalleReserva) =>{
+          if(res){
+          console.log('hola1 ');
+          this.utilSvc.saveInLocalStorage('reserva', res);
+          this.reserva = res;
+          await this.firebaseSvc.getviajeByUid(res.uidViaje).then( viaje =>{
+            this.utilSvc.saveInLocalStorage('viajePasajero', viaje);
+            this.viajePasajero = viaje;
+          })
+          }
+          else{
+            await this.firebaseSvc.viajebyOwner(user.email).then( viaje =>{
+              this.utilSvc.saveInLocalStorage('viajeEnEjec', viaje);
+              this.viajeEnEjec = viaje;
+            })
+          }
         })
       }
     });  

@@ -37,40 +37,26 @@
     </iframe>
     
     <div *ngIf="!viajeEnEjec || viajeEnEjec.estado == 'cancelado' || viajeEnEjec.estado == 'finalizado'">
-      <ion-row>
-        <ion-col size="10" >
-          <ion-button style="min-width: 90vw" color="light" routerLink="/main/buscar-conductor">
-              <ion-icon slot="icon-only" name="people-circle-outline" style="height: 30vw; width: 30vw"></ion-icon>
-              <p>Buscar asiento disponible</p>
-          </ion-button>
-        </ion-col>
+      <div *ngIf=" !viajePasajero"> 
+        <ion-row>
+          <ion-col size="10" >
+            <ion-button style="min-width: 90vw" color="light" routerLink="/main/buscar-conductor">
+                <ion-icon slot="icon-only" name="people-circle-outline" style="height: 30vw; width: 30vw"></ion-icon>
+                <p>Buscar asiento disponible</p>
+            </ion-button>
+          </ion-col>
 
-        <ion-col size="10">
-          <ion-button style="min-width: 90vw" color="medium" routerLink="/main/publicar-disp">
-            <ion-icon slot="icon-only" name="car-sport-outline" style="height: 30vw; width: 30vw"></ion-icon>
-            <p>Publicar disponibilidad</p>
-          </ion-button>
-        </ion-col>
-      </ion-row>
+          <ion-col size="10">
+            <ion-button style="min-width: 90vw" color="medium" routerLink="/main/publicar-disp">
+              <ion-icon slot="icon-only" name="car-sport-outline" style="height: 30vw; width: 30vw"></ion-icon>
+              <p>Publicar disponibilidad</p>
+            </ion-button>
+          </ion-col>
+        </ion-row> 
+      </div>
+      
     </div>
 
-    <div *ngIf="reserva == 'true'">
-      <h1>Viaje en ejecucion</h1>
-      <!-- <div *ngFor=""> -->
-        <ion-item  routerLink="/main">
-          <ion-thumbnail slot="start">
-            <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
-          </ion-thumbnail>
-          <ion-label>
-            <p>Destino: Concepcion</p>
-            <p>Detalle destino: Concepción centro</p>
-            <p>Hora Salida: 10:22 PM</p>
-            <p>Valor viaje: $2.000</p>
-            <p>Patente: XX-XX-XX</p>
-          </ion-label>
-        </ion-item>
-      <!-- </div> -->
-    </div>
 
     <div *ngIf="viajeEnEjec && viajeEnEjec.estado == 'creado'">
       <h1>Esperando pasajeros ...</h1>
@@ -99,7 +85,7 @@
     <div *ngIf="viajeEnEjec && viajeEnEjec.estado == 'iniciado'">
       <h1>Viaje en ejecución</h1>
       <div>
-        <ion-item  routerLink="/main">
+        <ion-item>
           <ion-thumbnail slot="start">
             <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
           </ion-thumbnail>
@@ -109,6 +95,27 @@
             <p>Hora Salida: {{viajeEnEjec.hora}}</p>
             <p>Monto: ${{viajeEnEjec.montoAsiento}}</p>
             <p>Asientos disponibles: {{viajeEnEjec.asientos}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-button (click)="finalizarViaje()" size="2vw" slot="end" color="danger">
+          Finalizar
+        </ion-button>
+      </div>
+    </div>
+
+    <div *ngIf="viajePasajero && viajePasajero">
+      <h1>Viaje en ejecución</h1>
+      <div>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-icon style="width: 100%; height: 100%" name="people-outline"></ion-icon>
+          </ion-thumbnail>
+          <ion-label>
+            <p>Patente: {{viajePasajero.patente}}</p>
+            <p>Destino: {{viajePasajero.destino}}</p>
+            <p>Hora Salida: {{viajePasajero.hora}}</p>
+            <p>Monto: ${{viajePasajero.montoAsiento}}</p>
+            <p>Asientos disponibles: {{viajePasajero.asientos}}</p>
           </ion-label>
         </ion-item>
         <ion-button (click)="finalizarViaje()" size="2vw" slot="end" color="danger">

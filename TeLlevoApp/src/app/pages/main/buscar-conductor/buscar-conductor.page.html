@@ -1,7 +1,7 @@
 <app-header title="Buscar Asientos" isBackBtn="true" iconMain="arrow-back-outline" ruta="/main"></app-header>
 
 <ion-content>
-  <form [formGroup]="form" class="auth-form" (ngSubmit)="buscarDest()" (keypress.enter)="buscarDest()">
+  <form [formGroup]="form" class="auth-form">
     <ion-list>
       <ion-item>
         <ion-icon slot="start" name="location-outline"></ion-icon>
@@ -26,7 +26,7 @@
     <div *ngFor="let i of viajes">
       <p>Viajes encontrados</p>
       <div *ngIf="i.destino == this.form.value['destino'] || this.form.value['destino'] == '' ">
-        <ion-item>
+        <ion-item (click)="solAsiento(i.uid)">
           <ion-thumbnail slot="start">
             <ion-icon name="people-outline"></ion-icon>
           </ion-thumbnail>
