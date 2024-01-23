@@ -23,14 +23,12 @@ export class MainPage implements OnInit {
   router = inject(Router);
 
   async ngOnInit() {
-
-    this.router.events.subscribe(async event => {
-      if (event instanceof NavigationEnd) { 
-        
+        const loading = await this.utilSvc.loading();
+        await loading.present();
         let user: User = JSON.parse(localStorage.getItem('user'));
         this.name = "Usuario: "+user.nombre;
         await this.firebaseSvc.getDetViajeByUser(user.uid).then(async (res: DetalleReserva) =>{
-          if(res){
+          if(res && res.estado!= ('finalizado' || 'cancelado' )){
           console.log('hola1 ');
           this.utilSvc.saveInLocalStorage('reserva', res);
           this.reserva = res;
@@ -45,10 +43,20 @@ export class MainPage implements OnInit {
               this.viajeEnEjec = viaje;
             })
           }
+        }).catch( error => {
+          console.log(error)
+          this.utilSvc.presentToast({
+            message: error.message,
+            duration: 2500,
+            color: 'danger',
+            position: 'middle',
+            icon: 'alert-circle-outline'
+          })
+        }).finally( () => {
+          this.router.navigateByUrl('/main');
+          loading.dismiss();
         })
       }
-    });  
-  } 
 
   async salir(){
     this.utilSvc.saveInLocalStorage('autos', []);
@@ -64,8 +72,6 @@ export class MainPage implements OnInit {
       this.utilSvc.saveInLocalStorage('viajeEnEjec', viaje);
       this.viajeEnEjec = viaje;
       this.firebaseSvc.updateDocument(`viajes/${this.viajeEnEjec.uid}`, 'estado', 'iniciado');
-      
-      
     }).catch( error => {
       this.utilSvc.presentToast({
         message: error.message,
@@ -150,5 +156,61 @@ export class MainPage implements OnInit {
     })
   }
 
+
+  async finalizarViajePasajero(){
+    const loading = await this.utilSvc.loading();
+    await loading.present();
+    let user: User = JSON.parse(localStorage.getItem('user'));
+    await this.firebaseSvc.viajebyOwner(user.email).then( async () =>{
+      await this.firebaseSvc.updateDocument(`detalleViajes/${this.reserva.uid}`, 'estado', 'finalizado');
+      this.utilSvc.saveInLocalStorage('viajePasajero', null); 
+    }).catch( error => {
+      console.log(error)
+      this.utilSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'danger',
+        position: 'middle',
+        icon: 'alert-circle-outline'})
+    }).finally(async () => {
+      await this.utilSvc.presentToast({
+        message: `Viaje finalizado`,
+        duration: 5000,
+        color: 'danger',
+        position: 'middle',
+        icon: 'person-circle-outline'})
+        this.router.navigateByUrl('/main').then(()=>{
+          location.reload();
+        })
+    })
+  }
+
+  async cancelarViajePasajero(){
+    const loading = await this.utilSvc.loading();
+    await loading.present();
+    let asientos = +this.viajePasajero.asientos + 1;
+    await this.firebaseSvc.updateDocument(`viajes/${this.reserva.uidViaje}`, 'asientos', asientos.toString()).then(async () => {
+      await this.firebaseSvc.updateDocument(`detalleViajes/${this.reserva.uid}`, 'estado', 'cancelado');
+      this.utilSvc.saveInLocalStorage('viajePasajero', null); 
+    }).catch( error => {
+      console.log(error)
+      this.utilSvc.presentToast({
+        message: error.message,
+        duration: 2500,
+        color: 'danger',
+        position: 'middle',
+        icon: 'alert-circle-outline'})
+    }).finally(async () => {
+      await this.utilSvc.presentToast({
+        message: `Viaje finalizado`,
+        duration: 5000,
+        color: 'danger',
+        position: 'middle',
+        icon: 'person-circle-outline'})
+        this.router.navigateByUrl('/main').then(()=>{
+          location.reload();
+        })
+    })
+  }
 
 }

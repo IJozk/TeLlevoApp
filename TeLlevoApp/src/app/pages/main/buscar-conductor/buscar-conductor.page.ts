@@ -19,7 +19,8 @@ export class BuscarConductorPage implements OnInit {
     destino: new FormControl('', [Validators.required]),
     uidViaje: new FormControl(''),
     uidPasajero: new FormControl(''),
-    estado: new FormControl('')
+    estado: new FormControl(''),
+    uid: new FormControl(''),
   })
 
   router = inject(Router);
@@ -47,7 +48,7 @@ export class BuscarConductorPage implements OnInit {
     const loading = await this.utilSvc.loading();
     await loading.present();
     this.viaje = await this.firebaseSvc.getviajeByUid(uid);
-
+    let detRes: DetalleReserva;
     let path = `detalleViajes/`;
 
     delete this.form.value.destino;
@@ -58,12 +59,10 @@ export class BuscarConductorPage implements OnInit {
     if (this.viaje.asientos != '0'){
     let asientos = +this.viaje.asientos - 1;
 
-    this.firebaseSvc.addDocument(path, this.form.value as DetalleReserva).then(async res => {
-      
-      this.firebaseSvc.updateDocument(res.path, 'uid',  res.id);
+    await this.firebaseSvc.addDocument(path, this.form.value as DetalleReserva).then(res => {
+      this.firebaseSvc.updateDocument(`detalleViajes/${res.id}`, 'uid',  res.id);
+      console.log(detRes);
       this.firebaseSvc.updateDocument(`viajes/${this.viaje.uid}`, 'asientos',  asientos.toString());
-      this.utilSvc.saveInLocalStorage('reserva', res.id);
-      this.router.navigateByUrl('/main');
       this.form.reset();
 
     }).catch(error => {
@@ -76,8 +75,9 @@ export class BuscarConductorPage implements OnInit {
         position: 'middle',
         icon: 'alert-circle-outline'
       })
-    }).finally(() => {
+    }).finally(async () => {
       loading.dismiss();
+      await this.router.navigateByUrl('/main');
     })
   }
 }
